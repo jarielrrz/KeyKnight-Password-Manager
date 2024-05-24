@@ -1,0 +1,10 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+itsdangerous
+Werkzeug
+MarkupSafe
+Jinja2
+sqlalchemy  
+secrets
+string

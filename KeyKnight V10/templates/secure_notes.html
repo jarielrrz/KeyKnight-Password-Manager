@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!--Top Nav-->
+    <nav>
+        <div class="container">
+          <div id="KeyKnightNavText">
+            <img class="edit-img" src="{{ url_for('static', filename='fulllogofixed.png') }}" alt="Logo Icon" class="fulllogofixed">
+          </div>
+          <button class="hamburger" id="menu-toggler">&#9776;</button>
+          <div class="nav-buttons">
+        <div class="nav-background">
+            <ul class="nav-menu" id="hamburger-overlay">
+                <li class="menu-item"><a href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Back</a></li>
+            </ul>
+        </div>
+            <!-- Hamburger Button -->
+<button class="hamburger" onclick="toggleHamburgerOverlay()">
+    <div class="hamburger-line hamburger-line-top"></div>
+    <div class="hamburger-line hamburger-line-middle"></div>
+    <div class="hamburger-line hamburger-line-bottom"></div>
+  </button>
+          </div>
+        </div>
+    </div>
+    </div>
+    
+    <script>
+       // Toggle Hamburger Overlay Visibility
+function toggleHamburgerOverlay() {
+  var overlay = document.getElementById("hamburgerOverlay");
+  overlay.classList.toggle("active");
+}
+
+// Close Hamburger Overlay
+function closeHamburgerOverlay() {
+  var overlay = document.getElementById("hamburgerOverlay");
+  overlay.classList.remove("active");
+}
+
+  // Add Event Listener Menu Toggle      
+        document.addEventListener('DOMContentLoaded', function() {
+    const menuBtn = document.getElementById('menu-toggler');
+    const overlay = document.getElementById('hamburger-overlay');
+
+    // Toggle Overlay Visibility
+    function toggleOverlay() {
+        overlay.classList.toggle('active');
+    }
+
+    // Event listener for Menu Button
+    menuBtn.addEventListener('click', toggleOverlay);
+});
+
+        // Form Overlays and Menu Toggling
+document.addEventListener('DOMContentLoaded', function() {
+    const loginBtn = document.querySelector('.login-btn');
+    const registerBtn = document.querySelector('.register-btn');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const menuBtn = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // Toggle Login Form Visibility
+    function toggleLoginForm() {
+        loginForm.classList.toggle('active');
+    }
+
+    // Toggle Register Form Visibility
+    function toggleRegisterForm() {
+        registerForm.classList.toggle('active');
+    }
+
+    // Toggle Menu Visibility
+    function toggleMenu() {
+        navMenu.classList.toggle('active');
+    }
+
+    // Close Forms when Clicking Outside
+    window.addEventListener('click', function(event) {
+        if (event.target == loginForm) {
+            toggleLoginForm();
+        }
+        if (event.target == registerForm) {
+            toggleRegisterForm();
+        }
+    });
+
+    
+
+    // Event Listeners Login, Register, and Menu Button
+    loginBtn.addEventListener('click', toggleLoginForm);
+    registerBtn.addEventListener('click', toggleRegisterForm);
+    menuBtn.addEventListener('click', toggleMenu);
+});
+
+/* hamburger menu java */
+
+ // Close Button
+ const closeButton = document.querySelector('.close-hamburger-btn');
+  // Hamburger Overlay
+  const hamburgerOverlay = document.querySelector('.overlay-hamburger');
+
+  // Add Event Listener Close Button
+  closeButton.addEventListener('click', function() {
+    // Hide Hamburger Overlay
+    hamburgerOverlay.classList.remove('active');
+  });
+
+  function goToAboutSection() {
+    // Close Hamburger Overlay
+    document.querySelector('.overlay-hamburger').classList.remove('active');
+    // Scroll to About Section
+    const aboutSection = document.getElementById('about-section');
+    aboutSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Event Listener About Button
+document.getElementById('aboutButton').addEventListener('click', goToAboutSection);
+
+
+// Open Login Form Overlay
+function openLoginFormOverlay() {
+    // Close Hamburger Overlay
+    document.querySelector('.overlay-hamburger').classList.remove('active');
+    // Open Login Form Overlay
+    document.getElementById('login-overlay').classList.add('active');
+}
+
+// Event Listener Login Button
+document.getElementById('loginButton').addEventListener('click', openLoginFormOverlay);
+</script>
+</nav>
+
+<!-- Secure Notes Content-->
+<div class="sc-container">
+    <div class= "sc-cont" >
+    <h1 class="sc-title">Secure Notes</h1>
+    </div>
+    <div class="sc-notes-container">
+        {% if secure_notes %}
+            {% for note in secure_notes %}
+                <div class="sc-note-card">
+                    <div class="sc-note-header">
+                        <h2 class="sc-note-title">{{ note.title }}</h2>
+                    </div>
+                    <div class="sc-note-body">
+                        <p class="sc-note-content">{{ note.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No secure notes found.</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

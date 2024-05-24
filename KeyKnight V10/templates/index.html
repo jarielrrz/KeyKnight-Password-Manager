@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <title>KeyKnight - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}?v={{ cache_buster }}">
+</head>
+<body>
+    <!-- Flashed Messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li class="{{ message[1] }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+    
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+          <div id="KeyKnightNavText">
+            <img src="{{ url_for('static', filename='fulllogofixed.png') }}" alt="Logo Icon" class="fulllogofixed">
+          </div>
+          <button class="hamburger" id="menu-toggler">&#9776;</button>
+
+          <div class="nav-buttons">
+        <div class="nav-background">
+            <ul class="nav-menu">
+              <li class="menu-item"><a href="#about">About</a></li>
+              <li class="menu-item"><a href="#" id="loginBtn">Login</a></li>
+              <li class="menu-item"><a href="#" id="registerBtn">Register</a></li>
+            </ul>
+        </div>
+            <!-- Hamburger button -->
+<button class="hamburger" onclick="toggleHamburgerOverlay()">
+    <div class="hamburger-line hamburger-line-top"></div>
+    <div class="hamburger-line hamburger-line-middle"></div>
+    <div class="hamburger-line hamburger-line-bottom"></div>
+  </button>
+          </div>
+        </div>
+    </div>
+    </div>
+    
+    <script>
+        // Toggle Hamburger Overlay Visibility
+function toggleHamburgerOverlay() {
+  var overlay = document.getElementById("hamburgerOverlay");
+  overlay.classList.toggle("active");
+}
+// Close Hamburger Overlay
+function closeHamburgerOverlay() {
+  var overlay = document.getElementById("hamburgerOverlay");
+  overlay.classList.remove("active");
+}
+        document.addEventListener('DOMContentLoaded', function() {
+    const menuBtn = document.getElementById('menu-toggler');
+    const overlay = document.getElementById('hamburger-overlay');
+    // Toggle Overlay Visibility
+    function toggleOverlay() {
+        overlay.classList.toggle('active');
+    }
+    // Event Listener Menu Button
+    menuBtn.addEventListener('click', toggleOverlay);
+});
+
+        // Form Overlays and Menu Toggling
+document.addEventListener('DOMContentLoaded', function() {
+    const loginBtn = document.querySelector('.login-btn');
+    const registerBtn = document.querySelector('.register-btn');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const menuBtn = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    // Toggle Login Form Visibility
+    function toggleLoginForm() {
+        loginForm.classList.toggle('active');
+    }
+    // Toggle Register Form Visibility
+    function toggleRegisterForm() {
+        registerForm.classList.toggle('active');
+    }
+    // Toggle Menu Visibility
+    function toggleMenu() {
+        navMenu.classList.toggle('active');
+    }
+    // Close Forms when Clicking Outside
+    window.addEventListener('click', function(event) {
+        if (event.target == loginForm) {
+            toggleLoginForm();
+        }
+        if (event.target == registerForm) {
+            toggleRegisterForm();
+        }
+    });
+    // Event Listeners Login and Register Buttons
+    loginBtn.addEventListener('click', toggleLoginForm);
+    registerBtn.addEventListener('click', toggleRegisterForm);
+    // Event Listener Menu Buttons
+    menuBtn.addEventListener('click', toggleMenu);
+});
+
+/* Hamburger Menu Java */
+
+ // Close Button 
+ const closeButton = document.querySelector('.close-hamburger-btn');
+  // Hamburger Overlay
+  const hamburgerOverlay = document.querySelector('.overlay-hamburger');
+
+  // Add Event Listener Close Button
+  closeButton.addEventListener('click', function() {
+    // Hide Hamburger Overlay
+    hamburgerOverlay.classList.remove('active');
+  });
+
+  function goToAboutSection() {
+    // Close the Hamburger Overlay
+    document.querySelector('.overlay-hamburger').classList.remove('active');
+    // Scroll to About Section
+    const aboutSection = document.getElementById('about-section');
+    aboutSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Event Listener About Button
+document.getElementById('aboutButton').addEventListener('click', goToAboutSection);
+
+
+// Open Login Form Overlay
+function openLoginFormOverlay() {
+    // Close Hamburger Overlay
+    document.querySelector('.overlay-hamburger').classList.remove('active');
+    // Open Login Form Overlay
+    document.getElementById('login-overlay').classList.add('active');
+}
+
+// Event Listener Login Button
+document.getElementById('loginButton').addEventListener('click', openLoginFormOverlay);
+</script>
+
+</nav>
+<!-- Overlay Login Form -->
+<div id="loginForm" class="overlay-lr">
+    <div class="form">
+        <button class="close-btn" onclick="toggleLoginForm()">X</button>
+        <h1>Login</h1>
+        <form action="{{ url_for('login') }}" method="POST">
+            <label for="username">Username or Email:</label><br>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+            <input type="submit" value="Login" class="btn">
+        </form>
+        <p>Don't have an account? <a href="#" class="link" onclick="toggleLoginForm(); toggleRegisterForm()">Register</a></p>
+    </div>
+  </div>
+  
+  <!-- Overlay Register Form -->
+  <div id="registerForm" class="overlay-lr">
+    <div class="form">
+        <button class="close-btn" onclick="toggleRegisterForm()">X</button>
+        <h1>Register</h1>
+        <form action="{{ url_for('register') }}" method="POST">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+            <input type="submit" value="Register" class="btn">
+        </form>
+        <p>Already have an account? <a href="#" class="link" onclick="toggleRegisterForm(); toggleLoginForm()">Login</a></p>
+    </div>
+  </div>
+  
+
+<!-- Hero Section -->
+<div class="hero-image" style="height: 100%;">
+    <div class="hero-text">
+      <h1 style= "color: #fff; font-size:50px;">Guardian of Your Digital Keys</h1>
+      <p2>Securely Manage Your Passwords with KeyKnight</p2>
+    </div>
+      </div>
+    </div>
+  </div>
+<!-- Content Section -->
+<section class="content">
+  <h2>Key Features</h2>
+  <div class="container">
+      <div class="content-item">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Security Icon">
+          <h3>Robust Security</h3>
+          <p>Your data is encrypted using industry-standard encryption algorithms, ensuring it remains secure and protected.</p>
+      </div>
+      <div class="content-item">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Access Icon">
+          <h3>Easy Access</h3>
+          <p>Access your passwords securely from any device, anywhere in the world, with our convenient web and mobile apps.</p>
+      </div>
+      <div class="content-item">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Sync Icon">
+          <h3>Automatic Sync</h3>
+          <p>Keep your passwords in sync across all your devices automatically, so you're always up to date.</p>
+      </div>
+      <div class="content-item">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Analyze Icon">
+          <h3>Password Analysis</h3>
+          <p>Get insights into the strength and health of your passwords with our advanced analysis tools.</p>
+      </div>
+      <div class="content-item">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Generate Icon">
+          <h3>Custom Password Generation</h3>
+          <p>Create custom password profiles for different accounts and generate strong, unique passwords with ease.</p>
+      </div>
+      <div class="content-item">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="Notification Icon">
+          <h3>Password Expiry Notifications</h3>
+          <p>Receive timely notifications when your passwords are due for expiry, ensuring you never miss a password update.</p>
+      </div>
+  </div>
+</section>
+     <!-- About Us Section -->
+     <section id="about" class="about-us">
+      <div class="container">
+          <div class="about-us-content">
+              <h2>About Us</h2>
+              <p class="mission-statement">Our mission is to provide users with a secure and user-friendly password management solution, helping them stay organized and protected in the digital world.</p>
+              
+              <h3>Meet the Team</h3>
+              <div class="developers">
+                <div class="developer">
+                  <img src="{{ url_for('static', filename='Jarielavatar.png') }}" alt="Jariel Rodriguez" class="developer-img">
+                  <div class="developer-info">
+                      <h4>Jariel Rodriguez</h4>
+                      <p>Frontend & Backend Developer</p>
+                  </div>
+              </div>
+              <div class="developer">
+                  <img src="{{ url_for('static', filename='Anthonyavatar.png') }}" alt="Anthony Ho" class="developer-img">
+                  <div class="developer-info">
+                      <h4>Anthony Ho</h4>
+                      <p>Frontend Developer</p>
+                  </div>
+              </div>
+              <div class="developer">
+                  <img src="{{ url_for('static', filename='Lisandroavatar.png') }}" alt="Lisandro Velazquez" class="developer-img">
+                  <div class="developer-info">
+                      <h4>Lisandro Velazquez</h4>
+                      <p>Frontend Developer</p>
+                  </div>
+              </div>
+              <div class="developer">
+                  <img src="{{ url_for('static', filename='Harveyavatar.png') }}" alt="Harvey Apale" class="developer-img">
+                  <div class="developer-info">
+                      <h4>Harvey Aaple</h4>
+                      <p>Backend Developer</p>
+                  </div>
+              </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 KeyKnight. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Handle Form Overlays -->
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const menuBtn = document.getElementById('menu-toggler');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // Toggle Menu Visibility
+    function toggleMenu() {
+        navMenu.classList.toggle('active');
+    }
+
+    // Event Listener Menu Button
+    menuBtn.addEventListener('click', toggleMenu);
+});
+
+// References, Buttons, and Forms
+const loginBtn = document.getElementById('loginBtn');
+const registerBtn = document.getElementById('registerBtn');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+
+// Display Login Form
+function displayLoginForm() {
+    loginForm.classList.add('active'); 
+}
+
+// Display Register Form
+function displayRegisterForm() {
+    registerForm.classList.add('active');
+}
+
+// Close Forms
+function closeForms() {
+    loginForm.classList.remove('active');
+    registerForm.classList.remove('active');
+}
+
+// Event Listeners Buttons
+loginBtn.addEventListener('click', displayLoginForm);
+registerBtn.addEventListener('click', displayRegisterForm);
+
+// Event Listener Close Buttons
+document.querySelectorAll('.close-btn').forEach(button => {
+    button.addEventListener('click', closeForms);
+});
+
+// Bacground Image For Header Conveyor
+
+document.addEventListener('DOMContentLoaded', function() {
+    const heroSection = document.querySelector('.hero-image');
+    const backgrounds = ['header2.png', 'header3.png']; 
+    let currentIndex = 0; 
+    // Change Background Image
+    function changeBackground() {
+        heroSection.style.backgroundImage = `url('static/${backgrounds[currentIndex]}')`;
+        currentIndex = (currentIndex + 1) % backgrounds.length; // Move to the next image
+    }
+    // ChangeBackground Every 10 Seconds
+    setInterval(changeBackground, 10000);
+});
+
+
+    </script>
+</body>
+</html>
